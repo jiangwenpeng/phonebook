@@ -1,8 +1,6 @@
 "use strict";
 
-import * as bootbox from "./bootbox";
-
-function isConfirmSaveEmployeeByUser(event, form) {
+function isConfirmSaveEmployeeByUser(event, form, bootbox) {
     const message = "Уверены ли вы, что хотите сохранить изменения?";
     bootbox.confirm(message, function (result) {
         if (result) {
@@ -11,17 +9,17 @@ function isConfirmSaveEmployeeByUser(event, form) {
     });
 }
 
+function recalculationIndexes() {
+    $("phoneList[index].number").each(function (index) {
+        const $this = $(this);
+        $this.attr("index", $this.attr("index").match(/\[\d+]/g, "[" + index + "]"));
+    });
+}
+
 function removePhone(removeBtn) {
     const parent = removeBtn.parent();
     parent.remove();
     recalculationIndexes();
-}
-
-function recalculationIndexes() {
-    $("phoneList[index].number").each(function () {
-        const $this = $(this);
-        $this.attr("index", $this.attr("index").match(/\[\d+]/g, "[" + index + "]"));
-    });
 }
 
 function refreshPhonesListener() {
